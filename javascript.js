@@ -1,4 +1,28 @@
-// Function - Computer Outputs
+// 3 buttons for 3 selections - rock, paper, scissors
+
+const btnrock = document.querySelector("#rock");
+const btnpaper = document.querySelector("#paper");
+const btnscissors = document.querySelector("#scissors");
+
+// Event listeners - passing arguments to the game(playerSelection) function below 
+
+btnrock.addEventListener('click', () => {
+    console.log(game('rock'));
+});
+
+btnpaper.addEventListener('click', () => {
+    console.log(game('paper'));
+});
+
+btnscissors.addEventListener('click', () => {
+    console.log(game('scissor'));
+});
+
+// Display score
+
+const display = document.querySelector('.display');
+
+// Computer's outputs (3 Values - 0 = rock, 1 = paper, 2 = scissors)
 
 function computerPlay() { 
     let num = Math.floor(Math.random() * 3);
@@ -10,57 +34,68 @@ function computerPlay() {
         return 'scissor';
 }
 
-// Rock, paper, scissors return values and increment of scores
+// Displays scores
 
-let playerScore = 0; 
-let computerScore = 0; 
+const displayScore = (playerSelection, computerSelection, result) => {
+    let user = 0, computer = 0, tie = 0;
+    let textContent = '';
+    if (result === 'User') user++;
+    else if (result === 'Computer') computer++;
+    else ++tie;
 
-function playRound(playerSelection, computerSelection) {    
-    if (playerSelection === 'rock' && (computerSelection === 'rock')) {
-        return 'You draw! Two rocks!';
+    textContent = `
+        <p>User: ${playerSelection}</p>
+        <p>Computer: ${computerSelection}</p>
+        <p>Result: ${result}</p>
+        <p>User Score: ${user};
+        <p>Computer Score: ${computer};
+        <p>Ties: ${tie};
+    `;
+
+    display.innerHTML = textContent;
+
+};
+
+// 1 round of RPS + put displayScore function inside
+
+function playRound(playerSelection, computerSelection) {
+    let result;
+    // User chooses rock outcomes
+    if (playerSelection === 'rock' && (computerSelection === 'scissor')) {
+        result = 'User';
     }   else if (playerSelection === 'rock' && (computerSelection === 'paper')) {
-        computerScore++;
-        return 'You lose! Rock loses to paper.';
-    }   else if (playerSelection === 'rock' && (computerSelection === 'scissor')) {
-        playerScore++;
-        return 'You win! Rock beats scissor.';
-    }   else if (playerSelection === 'paper' && (computerSelection === 'rock')) {
-        playerScore++;
-        return 'You win! Paper beats rock';
-    }   else if (playerSelection === 'paper' && (computerSelection === 'paper')) {
-        return 'You draw! Two papers!';
-    }   else if (playerSelection === 'paper' && (computerSelection === 'scissor')) {
-        computerScore++;
-        return 'You lose! Paper loses to scissors.';
-    }   else if (playerSelection === 'scissor' && (computerSelection === 'rock')) {
-        computerScore++;
-        return 'You lose! Scissor loses to rock.';
+        result = 'Computer'
+    } 
+    // User chooses scissors outcomes
+    else if (playerSelection === 'scissor' && (computerSelection === 'rock')) {
+        result = 'Computer';
     }   else if (playerSelection === 'scissor' && (computerSelection === 'paper')) {
-        playerScore++;
-        return 'You win! Scissor beats paper';
-    }   else if (playerSelection === 'scissor' && (computerSelection === 'scissor')) {
-        return 'You draw! Two scissors!'
+        result = 'User';
+    }   
+    // User chooses paper outcomes
+    else if (playerSelection === 'paper' && (computerSelection === 'rock')) {
+        result = 'User';
+    }   else if (playerSelection === 'paper' && (computerSelection === 'scissors')) {
+        result = 'Computer';
+    }  
+    // Ties
+    else {
+        result = 'Tie'
     }
-}  
+    
+    displayScore(playerSelection, computerSelection, result)
 
-// Game loops to 5 rounds
-
-function game() {
-    for (let i = 0; i < 5; i++) {
-        let playerSelection = prompt('Type: Rock, Paper, or Scissors!');
-        playerSelection = playerSelection.toLowerCase();
-        const computerSelection = computerPlay()
-        console.log(playRound(playerSelection, computerSelection))
-    }
-        if (playerScore > computerScore) {
-            alert (`You win! Final score: ${playerScore} to ${computerScore}`);
-        }   else if (computerScore > playerScore) {
-            alert (`You lose! Final score: ${playerScore} to ${computerScore}`);
-        }   else {
-            alert (`You tied! Final score: ${playerScore} to ${computerScore}`);
-        }
-      
+    return result;
 }
 
+// Passing arguments to playerSelection and computerSelection, declaring outcome
 
-game()
+function game(playerSelection) {
+    const computerSelection = computerPlay()
+    const outcome = playRound(playerSelection, computerSelection);
+    if (outcome === 'User') return "User won!"
+    else if (outcome === "Computer") return "Computer won!"
+    else return 'You tied with the computer!';
+}
+
+game ();
