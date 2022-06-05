@@ -126,12 +126,4 @@ function displayEnd() {
     }
   }
   
-  function setWins() {
-    const pWinCount = winners.filter((item) => item == "Player").length;
-    const cWinCount = winners.filter((item) => item == "Computer").length;
-    const ties = winners.filter((item) => item == "Tie").length;
-  }
-
   startGame();
-
-  resetGame();
