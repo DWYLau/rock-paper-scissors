@@ -1,3 +1,77 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: cornsilk;
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden; 
+    overflow-y: hidden;
+    color: black;
+    text-shadow: 0 0 2px black;
+}
+
+.choices {
+    display: flex;
+    width: 80vw;
+    justify-content: space-around;
+    margin-top: 200px;
+    position: absolute;
+    z-index: 1;
+}
+
+.playerImgs,
+.computerImgs {
+    display: flex;
+    width: auto;
+    justify-content: space-between;
+    background: burlywood;
+    padding: 20px;
+    border: solid black 4px;
+    border-radius: 10px;
+    max-height: 130px;
+}
+
+img {
+    width: 90px;
+    height: 90px;
+}
+
+.pImg:hover {
+    cursor: pointer;
+    width: 110px;
+    height: 110px;
+}
+
+.active {
+    width: 110px;
+    height: 110px;
+}
+
+.winner {
+    width: 100%;
+}
+
 .reset {
     display: none;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 60px;
+    background-color: blanchedalmond;
+    color: black;
+    font-size: x-large;
+    border: 2px solid black;
+    border-radius: 5px;
+    margin: 20px;
+}
+
+.reset:hover {
+    cursor: pointer;
+}
+
+.winnerDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
